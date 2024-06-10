@@ -1,7 +1,20 @@
 import os
-# from langchain_community.chat_models import ChatOpenAI
-from langchain_openai import ChatOpenAI
+from langchain.document_loaders import WebBaseLoader
 
-chatgpt = ChatOpenAI(model_name='gpt-3.5-turbo')
-answer = chatgpt.predict('why python is the most popular language? answer in korean')
-print(answer)
+# loader = WebBaseLoader('https://n.news.naver.com/mnews/article/092/0002307222?sid=105')
+
+# data = loader.load()
+# print(data[0].page_content)
+
+
+from langchain.document_loaders import UnstructuredURLLoader
+
+urls = [
+    'https://n.news.naver.com/mnews/article/092/0002307222?sid=105',
+    # 'https://n.news.naver.com/mnews/article/052/0001944792?sid=105',
+]
+
+loader = UnstructuredURLLoader(urls=urls)
+
+data = loader.load()
+print(data)
