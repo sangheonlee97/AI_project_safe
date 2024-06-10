@@ -1,20 +1,11 @@
 import os
-from langchain.document_loaders import WebBaseLoader
+from langchain.prompts import PromptTemplate, ChatPromptTemplate
 
-# loader = WebBaseLoader('https://n.news.naver.com/mnews/article/092/0002307222?sid=105')
+#프롬프트 템플릿을 통해 매개변수 삽입 가능한 문자열로 변환
+string_prompt = PromptTemplate.from_template("tell me a joke about {subject}")
 
-# data = loader.load()
-# print(data[0].page_content)
+#매개변수 삽입한 결과를 string_prompt_value에 할당
+string_prompt_value = string_prompt.format_prompt(subject="soccer")
 
-
-from langchain.document_loaders import UnstructuredURLLoader
-
-urls = [
-    'https://n.news.naver.com/mnews/article/092/0002307222?sid=105',
-    # 'https://n.news.naver.com/mnews/article/052/0001944792?sid=105',
-]
-
-loader = UnstructuredURLLoader(urls=urls)
-
-data = loader.load()
-print(data)
+#채팅LLM이 아닌 LLM과 대화할 때 필요한 프롬프트 = string prompt
+print(string_prompt_value)
